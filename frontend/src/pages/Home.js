@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axois from 'axios';
 import { Link } from 'react-router-dom';
+import ArticleListItem from '../components/article-list-item';
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
@@ -9,7 +10,6 @@ const Home = () => {
     const loadData = async () => {
       const { data } = await axois.get(`http://localhost:1337/articles`);
       if (data) {
-        console.log(data);
         setArticles(data);
       }
     };
@@ -17,11 +17,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container mx-auto">
       <ul>
         {articles.map((article) => (
-          <li key={article.id}>
-            {article.name}-{article.about}
+          <li className="my-4 rounded-lg shadow-lg" key={article.id}>
+            <ArticleListItem article={article} />
           </li>
         ))}
       </ul>
