@@ -27,6 +27,39 @@
     "about": {
       "type": "text",
       "required": true
+    },
+    "born": {
+      "type": "string"
+    },
+    "died": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "known_for": {
+      "type": "string"
+    },
+    "notable_work": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "medium": {
+      "type": "string"
+    },
+    "dimensions": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "designed_by": {
+      "type": "string"
+    },
+    "developer": {
+      "type": "string"
     }
   }
 }
