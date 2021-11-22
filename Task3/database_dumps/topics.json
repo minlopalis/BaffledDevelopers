@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "619605906f2f8d16f4d59d8d"
+  },
+  "name": "Theorem",
+  "createdAt": {
+    "$date": "2021-11-18T07:49:36.238Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-18T07:50:17.025Z"
+  },
+  "__v": 0,
+  "created_by": {
+    "$oid": "6194a95628521785f6355c15"
+  },
+  "updated_by": {
+    "$oid": "6194a95628521785f6355c15"
+  }
+},{
+  "_id": {
+    "$oid": "619605d36f2f8d16f4d59d8e"
+  },
+  "name": "Biography",
+  "createdAt": {
+    "$date": "2021-11-18T07:50:43.163Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-18T07:50:43.745Z"
+  },
+  "__v": 0,
+  "created_by": {
+    "$oid": "6194a95628521785f6355c15"
+  },
+  "updated_by": {
+    "$oid": "6194a95628521785f6355c15"
+  }
+},{
+  "_id": {
+    "$oid": "619605f16f2f8d16f4d59d8f"
+  },
+  "name": "Programming",
+  "createdAt": {
+    "$date": "2021-11-18T07:51:13.646Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-18T07:51:14.213Z"
+  },
+  "__v": 0,
+  "created_by": {
+    "$oid": "6194a95628521785f6355c15"
+  },
+  "updated_by": {
+    "$oid": "6194a95628521785f6355c15"
+  }
+},{
+  "_id": {
+    "$oid": "6196062b6f2f8d16f4d59d90"
+  },
+  "name": "Painting",
+  "createdAt": {
+    "$date": "2021-11-18T07:52:11.809Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-18T07:52:12.362Z"
+  },
+  "__v": 0,
+  "created_by": {
+    "$oid": "6194a95628521785f6355c15"
+  },
+  "updated_by": {
+    "$oid": "6194a95628521785f6355c15"
+  }
+},{
+  "_id": {
+    "$oid": "619b18c1dc83234d0873aca8"
+  },
+  "name": "Algorithm",
+  "createdAt": {
+    "$date": "2021-11-22T04:12:49.354Z"
+  },
+  "updatedAt": {
+    "$date": "2021-11-22T04:12:49.979Z"
+  },
+  "__v": 0,
+  "created_by": {
+    "$oid": "61960f626f2f8d16f4d59d95"
+  },
+  "updated_by": {
+    "$oid": "61960f626f2f8d16f4d59d95"
+  }
+}]

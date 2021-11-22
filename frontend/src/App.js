@@ -7,8 +7,8 @@ import NavBar from './components/nav-bar';
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Router>
-        <NavBar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/article/:id" component={Article} />

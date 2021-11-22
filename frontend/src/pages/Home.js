@@ -25,7 +25,6 @@ const Home = () => {
           </li>
         ))}
       </ul>
-      <Link to="/article/1">To article</Link>
     </div>
   );
 };
