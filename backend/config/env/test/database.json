@@ -1,0 +1,21 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "mongoose",
+      "settings": {
+        "uri": "mongodb+srv://dbUser4:EblkuWxp0012@cluster0.y2w3r.mongodb.net/school_stuff?authSource=admin&replicaSet=atlas-rdvfrx-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true",
+        "srv": true,
+        "port": 27017,
+        "database": "school_stuff"
+      },
+      "options": {
+        "useNullAsDefault": true,
+        "pool": {
+          "min": 0,
+          "max": 1
+        }
+      }
+    }
+  }
+}

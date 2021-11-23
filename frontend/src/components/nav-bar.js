@@ -2,12 +2,14 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { useCookies } from 'react-cookie';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function NavBar() {
+  const [cookies, removeCookies] = useCookies(['auth']);
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -121,15 +123,17 @@ export default function NavBar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="/"
+                          <button
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              'block px-4 py-2 text-sm text-gray-700 w-full flex justify-start'
                             )}
+                            onClick={() =>
+                              removeCookies(['auth'], { path: '/' })
+                            }
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
