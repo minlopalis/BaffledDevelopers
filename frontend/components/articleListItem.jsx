@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const ArticleListItem = ({ article }) => {
   return (
@@ -32,11 +32,10 @@ const ArticleListItem = ({ article }) => {
             </dd>
           </div>
           <div className="col-span-2 py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <Link
-              className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              to={`/article/${article.id}`}
-            >
-              Read More
+            <Link href={`/articles/${article.id}`}>
+              <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Read More
+              </a>
             </Link>
           </div>
         </dl>
