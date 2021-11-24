@@ -8,8 +8,6 @@ const Articles = (props) => {
 
   const { articles } = props;
 
-  //
-
   return (
     <div className="container mx-auto">
       <ul>
@@ -24,7 +22,6 @@ const Articles = (props) => {
 };
 
 export const getServerSideProps = async (ctx) => {
-  console.log(`ctx`, ctx);
   const cookies = nookies.get(ctx);
   let user = null;
   let articles = null;
@@ -74,12 +71,3 @@ export const getServerSideProps = async (ctx) => {
 };
 
 export default Articles;
-
-// const logout = async () => {
-//     try {
-//       await axios.get('/api/logout');
-//       router.push('/');
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   };

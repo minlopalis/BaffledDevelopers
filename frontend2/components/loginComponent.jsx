@@ -22,7 +22,7 @@ const LoginComponent = () => {
         password: data.Password,
       });
 
-      router.push('/profile');
+      router.push('/articles');
     } catch (err) {
       setLoading(false);
       console.log(err.response.data);

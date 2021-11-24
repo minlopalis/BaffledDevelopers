@@ -1,15 +1,15 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { useCookies } from 'react-cookie';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { Fragment } from 'react';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function NavBar() {
-  const [cookies, removeCookies] = useCookies(['auth']);
+const NavBar = ({ user }) => {
+  const router = useRouter();
 
   const logout = async () => {
     try {
@@ -19,7 +19,8 @@ export default function NavBar() {
       console.log(e);
     }
   };
-  return (
+
+  return user ? (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
         <>
@@ -135,11 +136,9 @@ export default function NavBar() {
                           <button
                             className={classNames(
                               active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700 w-full flex justify-start'
+                              ' px-4 py-2 text-sm text-gray-700 w-full flex justify-start'
                             )}
-                            onClick={() =>
-                              removeCookies(['auth'], { path: '/' })
-                            }
+                            onClick={logout}
                           >
                             Sign out
                           </button>
@@ -188,5 +187,7 @@ export default function NavBar() {
         </>
       )}
     </Disclosure>
-  );
-}
+  ) : null;
+};
+
+export default NavBar;
