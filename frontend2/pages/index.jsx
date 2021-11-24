@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import nookies from 'nookies';
 import LoginComponent from '../components/loginComponent';
+import { API_URL } from '../config';
 
 const Home = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ export const getServerSideProps = async (ctx) => {
 
   if (cookies?.jwt) {
     try {
-      const { data } = await axios.get('http://localhost:1337/users/me', {
+      const { data } = await axios.get(`${API_URL}/users/me`, {
         headers: {
           Authorization: `Bearer ${cookies.jwt}`,
         },
