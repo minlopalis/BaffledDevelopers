@@ -1,32 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import Button from './components/button';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Article from './pages/Article';
+import LoginPage from './pages/Login';
+import NavBar from './components/nav-bar';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      const { data } = await axios.get(`http://localhost:1337/articles`);
-      if (data) {
-        setArticles(data);
-      }
-    };
-    loadData();
-  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <Button text="Click Me" onClick={() => setCount(count + 1)} />
-        <Button text="Click Me" onClick={() => setCount(count - 1)} />
-        <p>{count}</p>
-        {articles.map((article) => (
-          <div>{article.name}</div>
-        ))}
-      </header>
+      <NavBar />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/article/:id" component={Article} />
+          <Route exact path="/login" component={LoginPage} />
+        </Switch>
+      </Router>
     </div>
   );
 }
