@@ -5,7 +5,7 @@ export default function Layout({ children, ...pageProps }) {
   return (
     <>
       <NavBar user={pageProps.user} />
-      <main>{children}</main>
+      <main className="container flex justify-center mx-auto">{children}</main>
       {/* <Footer /> */}
     </>
   );

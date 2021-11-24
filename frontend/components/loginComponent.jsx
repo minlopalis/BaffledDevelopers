@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Button from './button';
 import Input from './input';
 import Spinner from './spinner';
 
@@ -63,13 +64,10 @@ const LoginComponent = () => {
 
             <br />
             <div>
-              <button
-                type="submit"
-                className="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
+              <Button type="submit">
                 Sign in
                 {loading && <Spinner />}
-              </button>
+              </Button>
             </div>
           </form>
         </div>

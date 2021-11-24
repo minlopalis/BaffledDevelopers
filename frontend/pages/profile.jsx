@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import nookies from 'nookies';
 import { API_URL } from '../config';
+import Button from '../components/button';
 
 const Profile = (props) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const Profile = (props) => {
     <div>
       <div>Username: {username}</div>
       <div>Email: {email}</div>
-      <button onClick={logout}>Logout</button>
+      <Button onClick={logout}>Logout</Button>
     </div>
   );
 };

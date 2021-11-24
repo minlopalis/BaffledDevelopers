@@ -3,12 +3,15 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Fragment } from 'react';
+import { useStore } from '../store';
+import { SearchIcon } from '@heroicons/react/solid';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 const NavBar = ({ user }) => {
+  const { setFilter, filter } = useStore((state) => state);
   const router = useRouter();
 
   const logout = async () => {
@@ -18,6 +21,10 @@ const NavBar = ({ user }) => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
   };
 
   return user ? (
@@ -52,37 +59,27 @@ const NavBar = ({ user }) => {
                     href="/"
                     className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-indigo-500"
                   >
-                    Dashboard
-                  </a>
-                  <a
-                    href="/"
-                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Team
-                  </a>
-                  <a
-                    href="/"
-                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Projects
-                  </a>
-                  <a
-                    href="/"
-                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Calendar
+                    Articles
                   </a>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="w-6 h-6" aria-hidden="true" />
-                </button>
 
+              <div className="relative hidden mt-3 rounded-md shadow-sm sm:block">
+                <div className="absolute left-0 flex items-center pl-3 mt-2 pointer-events-none">
+                  <SearchIcon
+                    className="w-5 h-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="search..."
+                  value={filter}
+                  onChange={handleFilterChange}
+                />
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -159,29 +156,23 @@ const NavBar = ({ user }) => {
                 href="/"
                 className="block py-2 pl-3 pr-4 text-base font-medium text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50"
               >
-                Dashboard
+                Articles
               </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="/"
-                className="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="/"
-                className="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="/"
-                className="block py-2 pl-3 pr-4 text-base font-medium text-gray-500 border-l-4 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-              >
-                Calendar
-              </Disclosure.Button>
+              <div className="relative mt-3 rounded-md shadow-sm">
+                <div className="absolute left-0 flex items-center pl-3 mt-2 ml-2 pointer-events-none">
+                  <SearchIcon
+                    className="w-5 h-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className="block w-full pl-10 mx-4 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="search..."
+                  value={filter}
+                  onChange={handleFilterChange}
+                />
+              </div>
             </div>
           </Disclosure.Panel>
         </>

@@ -3,29 +3,56 @@ import axios from 'axios';
 import nookies from 'nookies';
 import ArticleListItem from '../../components/articleListItem';
 import { API_URL } from '../../config';
+import { useStore } from '../../store';
+import { useEffect } from 'react';
 
 const Articles = (props) => {
   const router = useRouter();
 
-  const { articles } = props;
+  const { setArticles, articles, filter } = useStore((state) => state);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: articleData } = await axios.get(`${API_URL}/articles`, {
+          headers: {
+            Authorization: `Bearer ${props.cookies.jwt}`,
+          },
+        });
+        setArticles(articleData);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="container mx-auto">
-      <ul>
-        {articles.map((article) => (
-          <li className="my-4 rounded-lg shadow-lg" key={article.id}>
-            <ArticleListItem article={article} />
-          </li>
-        ))}
-      </ul>
+      {articles.length ? (
+        <ul>
+          {articles
+            .filter(
+              ({ topic, subject, about }) =>
+                topic.name.toLowerCase().includes(filter.toLowerCase()) ||
+                subject.name.toLowerCase().includes(filter.toLowerCase()) ||
+                about.toLowerCase().includes(filter.toLowerCase())
+            )
+            .map((article) => (
+              <li className="my-4 rounded-lg shadow-lg" key={article.id}>
+                <ArticleListItem article={article} />
+              </li>
+            ))}
+        </ul>
+      ) : null}
     </div>
   );
 };
 
 export const getServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx);
+
   let user = null;
-  let articles = null;
 
   if (cookies?.jwt) {
     try {
@@ -49,24 +76,10 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  try {
-    const { data: articleData } = await axios.get(
-      'http://localhost:1337/articles',
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.jwt}`,
-        },
-      }
-    );
-    articles = articleData;
-  } catch (e) {
-    console.log(e);
-  }
-
   return {
     props: {
       user,
-      articles,
+      cookies,
     },
   };
 };

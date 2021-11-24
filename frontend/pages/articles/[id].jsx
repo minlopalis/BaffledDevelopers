@@ -25,7 +25,7 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  if (!user || user.role.type === 'student') {
+  if (!user) {
     return {
       redirect: {
         permanent: false,
