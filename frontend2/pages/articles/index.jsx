@@ -1,0 +1,85 @@
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import nookies from 'nookies';
+import ArticleListItem from '../../components/articleListItem';
+
+const Articles = (props) => {
+  const router = useRouter();
+
+  const { articles } = props;
+
+  //
+
+  return (
+    <div className="container mx-auto">
+      <ul>
+        {articles.map((article) => (
+          <li className="my-4 rounded-lg shadow-lg" key={article.id}>
+            <ArticleListItem article={article} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export const getServerSideProps = async (ctx) => {
+  console.log(`ctx`, ctx);
+  const cookies = nookies.get(ctx);
+  let user = null;
+  let articles = null;
+
+  if (cookies?.jwt) {
+    try {
+      const { data } = await axios.get('http://localhost:1337/users/me', {
+        headers: {
+          Authorization: `Bearer ${cookies.jwt}`,
+        },
+      });
+      user = data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  if (!user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+
+  try {
+    const { data: articleData } = await axios.get(
+      'http://localhost:1337/articles',
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.jwt}`,
+        },
+      }
+    );
+    articles = articleData;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return {
+    props: {
+      user,
+      articles,
+    },
+  };
+};
+
+export default Articles;
+
+// const logout = async () => {
+//     try {
+//       await axios.get('/api/logout');
+//       router.push('/');
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
