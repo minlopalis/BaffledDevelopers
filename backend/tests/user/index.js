@@ -10,6 +10,12 @@ const mockUserData = {
   blocked: null,
 };
 
+// mock data for PUT and POST
+const mockPutPostData = {
+  about: "THIS IS MOCK ABOUT TEST DATA",
+  name: "TEST DATA NAME",
+};
+
 it("should login user and return jwt token", async () => {
   await request(strapi.server) // app server is an instance of Class: http.Server
     .post("/auth/local")
@@ -61,4 +67,29 @@ it("should return users data for authenticated user", async () => {
       expect(data.body.username).toBe(response.body.user.username);
       expect(data.body.email).toBe(response.body.user.email);
     });
+});
+
+// start student post test
+it("Should return a post fail as a student can not post data", async () => {
+  // log user in
+  const response = await request(strapi.server) // app server is an instance of Class: http.Server
+    .post("/auth/local")
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .send({
+      identifier: mockUserData.email,
+      password: mockUserData.password,
+    });
+
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: response.body.user._id,
+  });
+
+  const postResponse = await request(strapi.server)
+    .post("/articles")
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect("Content-Type", /json/)
+    .expect(403);
 });
