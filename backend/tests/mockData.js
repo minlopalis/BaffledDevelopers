@@ -7,4 +7,8 @@ module.exports = {
     confirmed: true,
     blocked: null,
   },
+  mockPutPostData: {
+    about: "THIS IS MOCK ABOUT TEST DATA",
+    name: "TEST DATA NAME",
+  },
 };

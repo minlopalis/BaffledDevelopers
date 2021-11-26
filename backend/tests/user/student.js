@@ -1,20 +1,5 @@
 const request = require("supertest");
-
-// user mock data
-const mockUserData = {
-  username: "student",
-  email: "student@test.com",
-  provider: "local",
-  password: "Student123",
-  confirmed: true,
-  blocked: null,
-};
-
-// mock data for PUT and POST
-const mockPutPostData = {
-  about: "THIS IS MOCK ABOUT TEST DATA",
-  name: "TEST DATA NAME",
-};
+const { mockPutPostData, mockUserData } = require("../mockData");
 
 it("should login user and return jwt token", async () => {
   await request(strapi.server) // app server is an instance of Class: http.Server
