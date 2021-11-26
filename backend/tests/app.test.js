@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { setupStrapi } = require("./helpers/strapi");
 
-jest.setTimeout(15000);
+jest.setTimeout(150000); // may have to increase as more tests require
 
 /** this code is called once before any test is called */
 beforeAll(async () => {
@@ -28,4 +28,4 @@ it("strapi is defined", () => {
   expect(strapi).toBeDefined();
 });
 
-require("./user");
+require("./user/student");

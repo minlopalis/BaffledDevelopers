@@ -84,12 +84,13 @@ it("Should return a post fail as a student can not post data", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: response.body.user._id,
   });
-
-  const postResponse = await request(strapi.server)
+  // This is where the test should be edited for post put delete and get 
+  await request(strapi.server)
     .post("/articles")
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", "Bearer " + jwt)
+    .send(mockPutPostData)
     .expect("Content-Type", /json/)
     .expect(403);
 });
