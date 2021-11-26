@@ -29,3 +29,4 @@ it("strapi is defined", () => {
 });
 
 require("./user/student");
+require("./article/index");
