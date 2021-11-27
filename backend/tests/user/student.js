@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { mockPutPostData, mockUserData } = require("../mockData");
+const { mockPutPostData, mockStudentUserData } = require("../mockData");
 
 it("should login user and return jwt token", async () => {
   await request(strapi.server) // app server is an instance of Class: http.Server
@@ -7,8 +7,8 @@ it("should login user and return jwt token", async () => {
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .send({
-      identifier: mockUserData.email,
-      password: mockUserData.password,
+      identifier: mockStudentUserData.email,
+      password: mockStudentUserData.password,
     })
     .expect("Content-Type", /json/)
     .expect(200)
@@ -31,8 +31,8 @@ it("should return users data for authenticated user", async () => {
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .send({
-      identifier: mockUserData.email,
-      password: mockUserData.password,
+      identifier: mockStudentUserData.email,
+      password: mockStudentUserData.password,
     });
 
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
@@ -62,8 +62,8 @@ it("Should return a post fail as a student can not post data", async () => {
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .send({
-      identifier: mockUserData.email,
-      password: mockUserData.password,
+      identifier: mockStudentUserData.email,
+      password: mockStudentUserData.password,
     });
 
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
