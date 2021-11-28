@@ -27,4 +27,10 @@ module.exports = {
     about: "THIS IS MOCK ABOUT TEST DATA",
     name: "TEST DATA NAME",
   },
+  mockSubjectData: {
+    name: "Mock Subject",
+  },
+  mockTopicData: {
+    name: "Mock Topic",
+  },
 };
