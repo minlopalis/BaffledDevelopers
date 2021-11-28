@@ -33,3 +33,4 @@ require("./user/tutor");
 require("./user/admin");
 require("./article");
 require("./topic");
+require("./subject")

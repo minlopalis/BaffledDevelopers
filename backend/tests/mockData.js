@@ -33,4 +33,14 @@ module.exports = {
   mockTopicData: {
     name: "Mock Topic",
   },
+  articleData: {
+    _id: "619b1915dc83234d0873aca9",
+    name: "Bill Gates",
+    subject: {
+      name: 'Technology'
+    },
+    topic: {
+      name: 'Biography'
+    }
+  }
 };

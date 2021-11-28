@@ -4,6 +4,7 @@ const {
   mockPutPostData,
   mockSubjectData,
   mockTopicData,
+  articleData
 } = require("../mockData");
 
 let adminUser = null;
@@ -58,7 +59,7 @@ it("should return users data for authenticated user", async () => {
 let subjectId = null;
 let topicId = null;
 
-it("Admin should be able to crete an article", async () => {
+it("Admin should be able to CREATE an article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -76,7 +77,23 @@ it("Admin should be able to crete an article", async () => {
     });
 });
 
-it("Admin should be able to update an article", async () => {
+test('Admin should be able to READ an aricle  by the Article ID', async ()=> {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: adminUser.user._id,
+  });
+
+  await request(strapi.server)
+    .get(`/articles/${articleData._id}`)
+    .set('accept', 'application/json')
+    .set('Content-Type', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
+    .expect(200)
+    .then(res => {
+      expect(res.body._id).toBe(articleData._id);
+    })
+});
+
+it("Admin should be able to UPDATE an article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -94,7 +111,7 @@ it("Admin should be able to update an article", async () => {
     });
 });
 
-it("Admin should be able to delete an article", async () => {
+it("Admin should be able to DELETE an article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -107,7 +124,8 @@ it("Admin should be able to delete an article", async () => {
     .expect(200);
 });
 
-it("Admin should be able to crete a subject", async () => {
+
+it("Admin should be able to CREATE a subject", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -125,7 +143,7 @@ it("Admin should be able to crete a subject", async () => {
     });
 });
 
-it("Admin should be able to delete an subject", async () => {
+it("Admin should be able to DELETE an subject", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -138,7 +156,7 @@ it("Admin should be able to delete an subject", async () => {
     .expect(200);
 });
 
-it("Admin should be able to crete a topic", async () => {
+it("Admin should be able to CREATE a topic", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -156,7 +174,7 @@ it("Admin should be able to crete a topic", async () => {
     });
 });
 
-it("Admin should be able to delete a topic", async () => {
+it("Admin should be able to DELETE a topic", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });

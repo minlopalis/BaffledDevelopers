@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { mockStudentUserData } = require("../mockData");
+const { mockStudentUserData, articleData } = require("../mockData");
 
 let studentUser = null;
 
@@ -28,5 +28,22 @@ it("Should return a list of subjects", async () => {
     .expect(200)
     .then((data) => {
       expect(data.body.length).toBeGreaterThan(0);
+    });
+});
+
+test('Return the subject for a given Article Id', async ()=> {
+
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({id: studentUser.user._id});
+
+  const article = await request(strapi.server)
+    .get(`/articles/${articleData._id}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect("Content-Type", /json/)
+    .expect(200)
+    .then((res) => {
+      expect(res.body._id).toBeDefined();
+      expect(res.body.subject.name).toBe(articleData.subject.name);
     });
 });

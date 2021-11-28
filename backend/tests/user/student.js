@@ -4,6 +4,7 @@ const {
   mockPutPostData,
   mockTopicData,
   mockSubjectData,
+  articleData
 } = require("../mockData");
 
 let studentUser = null;
@@ -46,7 +47,7 @@ it("should return users data for authenticated user", async () => {
     });
 });
 
-it("Student can not create an article", async () => {
+it("Student can NOT CREATE an article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: studentUser.user._id,
   });
@@ -61,7 +62,7 @@ it("Student can not create an article", async () => {
     .expect(403);
 });
 
-it("Student can not create an topic", async () => {
+it("Student can NOT CREATE an topic", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: studentUser.user._id,
   });
@@ -76,7 +77,7 @@ it("Student can not create an topic", async () => {
     .expect(403);
 });
 
-it("Student can not create an subject", async () => {
+it("Student can NOT CREATE an subject", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: studentUser.user._id,
   });
@@ -88,5 +89,35 @@ it("Student can not create an subject", async () => {
     .set("Authorization", "Bearer " + jwt)
     .send(mockSubjectData)
     .expect("Content-Type", /json/)
+    .expect(403);
+});
+
+
+test('Student should be able to READ an aricle by the Article ID', async ()=> {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: studentUser.user._id,
+  });
+
+  await request(strapi.server)
+    .get(`/articles/${articleData._id}`)
+    .set('accept', 'application/json')
+    .set('Content-Type', 'application/json')
+    .set('Authorization', `Bearer ${jwt}`)
+    .expect(200)
+    .then(res => {
+      expect(res.body._id).toBe(articleData._id);
+    })
+});
+
+test("Student should NOT be able to DELETE an article", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: studentUser.user._id,
+  });
+
+  await request(strapi.server)
+    .delete(`/articles/${articleData._id}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
     .expect(403);
 });
