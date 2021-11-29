@@ -1,8 +1,9 @@
-import axios from 'axios';
-import nookies from 'nookies';
-import { API_URL } from '../../config';
+import axios from "axios";
+import nookies from "nookies";
+import { API_URL } from "../../config";
 
-const Article = (props) => {
+const Article = ({ article }) => {
+  console.log(article);
   return <div className="">Article</div>;
 };
 
@@ -29,7 +30,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/',
+        destination: "/",
       },
     };
   }

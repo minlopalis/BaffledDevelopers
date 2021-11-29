@@ -8,6 +8,8 @@ const {
 } = require("../mockData");
 
 let adminUser = null;
+let subjectId = null;
+let topicId = null;
 
 it("should login as an admin and return jwt token", async () => {
   await request(strapi.server) // app server is an instance of Class: http.Server
@@ -55,9 +57,6 @@ it("should return users data for authenticated user", async () => {
       expect(data.body.email).toBe(adminUser.user.email);
     });
 });
-
-let subjectId = null;
-let topicId = null;
 
 it("Admin should be able to CREATE an article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
