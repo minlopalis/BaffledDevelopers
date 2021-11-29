@@ -1,11 +1,14 @@
 const request = require("supertest");
-const { 
-  mockTutorUserData, 
-  mockPutPostData, 
-  articleData } = require("../mockData");
+const {
+  mockTutorUserData,
+  mockPutPostData,
+  articleData,
+} = require("../mockData");
 
 let tutorUser = null;
 let articleId = null;
+let subjectId = null;
+let topicId = null;
 
 it("should login as a tutor and return jwt token", async () => {
   await request(strapi.server) // app server is an instance of Class: http.Server
@@ -63,28 +66,28 @@ it("Tutor should be able to CREATE an article", async () => {
     });
 });
 
-test('Tutor should be able to READ an aricle by the Article ID', async ()=> {
+test("Tutor should be able to READ an aricle by the Article ID", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: tutorUser.user._id,
   });
 
   await request(strapi.server)
     .get(`/articles/${articleData._id}`)
-    .set('accept', 'application/json')
-    .set('Content-Type', 'application/json')
-    .set('Authorization', `Bearer ${jwt}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", `Bearer ${jwt}`)
     .expect(200)
-    .then(res => {
+    .then((res) => {
       expect(res.body._id).toBe(articleData._id);
-    })
+    });
 });
 
-test('Tutor should be able to UPDATE an article', async() => {
-  const newData = {name: 'Bill (William) Gates'};
+test("Tutor should be able to UPDATE an article", async () => {
+  const newData = { name: "Bill (William) Gates" };
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: tutorUser.user._id,
   });
-  
+
   await request(strapi.server)
     .put(`/articles/${articleId}`)
     .set("accept", "application/json")
@@ -111,3 +114,71 @@ it("Tutor should NOT be able to DELETE an article", async () => {
     .set("Authorization", "Bearer " + jwt)
     .expect(403);
 });
+
+// Get All Articles
+it("Tutor can Get All Articles", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: tutorUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .get("/articles")
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect("Content-Type", /json/)
+    .expect(200);
+});
+
+// Update Article
+it("Tutor can Update Articles", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: tutorUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .put(`/articles/${articleData._id}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect("Content-Type", /json/)
+    .expect(200);
+});
+
+// Update subject TODO requires a subject post method for testing
+// it("admin can Update Articles", async () => {
+//   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+//     id: tutorUser.user._id,
+//   });
+//   // This is where the test should be edited for post put delete and get
+//   await request(strapi.server)
+//     .put(`/subjects/${subjectId}`)
+//     .set("accept", "application/json")
+//     .set("Content-Type", "application/json")
+//     .set("Authorization", "Bearer " + jwt)
+//     .send({ name: "testing subject update" })
+//     .expect(200)
+//     .then((data) => {
+//       expect(data.body).toBeDefined();
+//       expect(data.body.name).toBe("testing subject update");
+//     });
+// });
+
+// Update topic
+// it("tutor can Update subject", async () => {
+//   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+//     id: tutorUser.user._id,
+//   });
+//   // This is where the test should be edited for post put delete and get
+//   await request(strapi.server)
+//     .put(`/topics/${topicId}`)
+//     .set("accept", "application/json")
+//     .set("Content-Type", "application/json")
+//     .set("Authorization", "Bearer " + jwt)
+//     .send({ name: "testing topic update" })
+//     .expect(200)
+//     .then((data) => {
+//       expect(data.body).toBeDefined();
+//       expect(data.body.name).toBe("testing topic update");
+//     });
+// });

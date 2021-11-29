@@ -4,7 +4,7 @@ const {
   mockPutPostData,
   mockSubjectData,
   mockTopicData,
-  articleData
+  articleData,
 } = require("../mockData");
 
 let adminUser = null;
@@ -77,20 +77,20 @@ it("Admin should be able to CREATE an article", async () => {
     });
 });
 
-test('Admin should be able to READ an aricle  by the Article ID', async ()=> {
+test("Admin should be able to READ an aricle  by the Article ID", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
 
   await request(strapi.server)
     .get(`/articles/${articleData._id}`)
-    .set('accept', 'application/json')
-    .set('Content-Type', 'application/json')
-    .set('Authorization', `Bearer ${jwt}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", `Bearer ${jwt}`)
     .expect(200)
-    .then(res => {
+    .then((res) => {
       expect(res.body._id).toBe(articleData._id);
-    })
+    });
 });
 
 it("Admin should be able to UPDATE an article", async () => {
@@ -124,7 +124,6 @@ it("Admin should be able to DELETE an article", async () => {
     .expect(200);
 });
 
-
 it("Admin should be able to CREATE a subject", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
@@ -140,6 +139,25 @@ it("Admin should be able to CREATE a subject", async () => {
     .expect(200)
     .then((data) => {
       subjectId = data.body._id;
+    });
+});
+
+// Update subject
+it("admin can Update subject", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: adminUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .put(`/subjects/${subjectId}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .send({ name: "testing subject update" })
+    .expect(200)
+    .then((data) => {
+      expect(data.body).toBeDefined();
+      expect(data.body.name).toBe("testing subject update");
     });
 });
 
@@ -174,6 +192,25 @@ it("Admin should be able to CREATE a topic", async () => {
     });
 });
 
+// Update topic
+it("admin can Update subject", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: adminUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .put(`/topics/${topicId}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .send({ name: "testing topic update" })
+    .expect(200)
+    .then((data) => {
+      expect(data.body).toBeDefined();
+      expect(data.body.name).toBe("testing topic update");
+    });
+});
+
 it("Admin should be able to DELETE a topic", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
@@ -184,5 +221,35 @@ it("Admin should be able to DELETE a topic", async () => {
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", "Bearer " + jwt)
+    .expect(200);
+});
+
+// Get All Articles
+it("Admin can Get All Articles", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: adminUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .get("/articles")
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect("Content-Type", /json/)
+    .expect(200);
+});
+
+// Update Article
+it("Admin can Update Articles", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: adminUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .put(`/articles/${articleData._id}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect("Content-Type", /json/)
     .expect(200);
 });
