@@ -11,6 +11,7 @@ function classNames(...classes) {
 
 function Topics({ user, cookies }) {
   const { topics, setTopics } = useStore((state) => state);
+
   useEffect(() => {
     const fetchTopics = async () => {
       const { data } = await axios.get(`${API_URL}/topics`, {
@@ -37,7 +38,7 @@ function Topics({ user, cookies }) {
       >
         {topics.map((topic) => (
           <li
-            key={topic?.name}
+            key={topic?.id}
             className="flex col-span-1 rounded-md shadow-sm"
           >
             <div

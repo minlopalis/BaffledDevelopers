@@ -24,6 +24,7 @@ const LoginComponent = () => {
       });
 
       router.push('/articles');
+      setLoading(false);
     } catch (err) {
       setLoading(false);
       console.log(err.response.data);
