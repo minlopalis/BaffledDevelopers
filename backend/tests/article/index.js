@@ -5,6 +5,7 @@ const searchString = "_name=Bill Gates";
 
 let articleId = null;
 let studentUser = null;
+let jwt = null;
 
 it("Should return a list of articles by a specified name", async () => {
   // log user in
@@ -17,10 +18,8 @@ it("Should return a list of articles by a specified name", async () => {
       password: mockStudentUserData.password,
     });
   studentUser = response.body;
+  jwt = studentUser.jwt;
 
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .get("/articles")
@@ -37,10 +36,6 @@ it("Should return a list of articles by a specified name", async () => {
 });
 
 it("should return info for an article for a supplied id", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-
   await request(strapi.server)
     .get(`/articles/${articleId}`)
     .set("accept", "application/json")

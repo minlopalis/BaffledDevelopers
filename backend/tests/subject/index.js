@@ -1,7 +1,12 @@
 const request = require("supertest");
-const { mockStudentUserData, articleData } = require("../mockData");
+const {
+  mockStudentUserData,
+  articleData,
+  knownArticleId,
+} = require("../mockData");
 
 let studentUser = null;
+let jwt = null;
 
 it("Should return a list of subjects", async () => {
   // log user in
@@ -14,10 +19,8 @@ it("Should return a list of subjects", async () => {
       password: mockStudentUserData.password,
     });
   studentUser = response.body;
+  jwt = studentUser.jwt;
 
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .get("/subjects")
@@ -31,12 +34,9 @@ it("Should return a list of subjects", async () => {
     });
 });
 
-test('Return the subject for a given Article Id', async ()=> {
-
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({id: studentUser.user._id});
-
+test("Return the subject for a given Article Id", async () => {
   const article = await request(strapi.server)
-    .get(`/articles/${articleData._id}`)
+    .get(`/articles/${knownArticleId}`)
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", "Bearer " + jwt)
@@ -44,6 +44,6 @@ test('Return the subject for a given Article Id', async ()=> {
     .expect(200)
     .then((res) => {
       expect(res.body._id).toBeDefined();
-      expect(res.body.subject.name).toBe(articleData.subject.name);
+      expect(res.body.subject.id).toBe(articleData.subject);
     });
 });

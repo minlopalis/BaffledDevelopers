@@ -34,13 +34,9 @@ module.exports = {
     name: "Mock Topic",
   },
   articleData: {
-    _id: "619b1915dc83234d0873aca9",
     name: "Bill Gates",
-    subject: {
-      name: 'Technology'
-    },
-    topic: {
-      name: 'Biography'
-    }
-  }
+    subject: "619609256f2f8d16f4d59d93",
+    topic: "619605d36f2f8d16f4d59d8e",
+  },
+  knownArticleId: "619b1915dc83234d0873aca9",
 };

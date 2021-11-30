@@ -4,12 +4,13 @@ const {
   mockPutPostData,
   mockTopicData,
   mockSubjectData,
-  articleData,
+  knownArticleId,
 } = require("../mockData");
 
 let studentUser = null;
 let subjectId = null;
 let topicId = null;
+let jwt = null;
 
 it("should login as a student and return jwt token", async () => {
   await request(strapi.server) // app server is an instance of Class: http.Server
@@ -26,14 +27,11 @@ it("should login as a student and return jwt token", async () => {
       expect(data.body.jwt).toBeDefined();
       expect(data.body.user.role.type).toBe("student");
       studentUser = data.body;
+      jwt = data.body.jwt;
     });
 });
 
 it("should return users data for authenticated user", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-
   await request(strapi.server) // app server is an instance of Class: http.Server
     .get("/users/me")
     .set("accept", "application/json")
@@ -50,9 +48,6 @@ it("should return users data for authenticated user", async () => {
 });
 
 it("Student can NOT CREATE an article", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .post("/articles")
@@ -65,28 +60,20 @@ it("Student can NOT CREATE an article", async () => {
 });
 
 test("Student should be able to READ an article by the Article ID", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-
   await request(strapi.server)
-    .get(`/articles/${articleData._id}`)
+    .get(`/articles/${knownArticleId}`)
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", `Bearer ${jwt}`)
     .expect(200)
     .then((res) => {
-      expect(res.body._id).toBe(articleData._id);
+      expect(res.body._id).toBe(knownArticleId);
     });
 });
 
 test("Student should NOT be able to DELETE an article", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-
   await request(strapi.server)
-    .delete(`/articles/${articleData._id}`)
+    .delete(`/articles/${knownArticleId}`)
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", "Bearer " + jwt)
@@ -95,9 +82,6 @@ test("Student should NOT be able to DELETE an article", async () => {
 
 // Get All Articles
 it("Student can Get All Articles", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .get("/articles")
@@ -110,12 +94,9 @@ it("Student can Get All Articles", async () => {
 
 // Update Article
 it("Student can NOT Update an Article", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
-    .put(`/articles/${articleData._id}`)
+    .put(`/articles/${knownArticleId}`)
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", "Bearer " + jwt)
@@ -124,9 +105,6 @@ it("Student can NOT Update an Article", async () => {
 });
 
 it("Student can NOT CREATE a topic", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .post("/topics")
@@ -140,9 +118,6 @@ it("Student can NOT CREATE a topic", async () => {
 
 // Update Topic
 it("student can NOT Update a topic", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .put(`/topics/${topicId}`)
@@ -154,9 +129,6 @@ it("student can NOT Update a topic", async () => {
 });
 
 it("Student can NOT CREATE a subject", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .post("/subjects")
@@ -170,9 +142,6 @@ it("Student can NOT CREATE a subject", async () => {
 
 // Update subject
 it("student can NOT Update a subject", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
   // This is where the test should be edited for post put delete and get
   await request(strapi.server)
     .put(`/subjects/${subjectId}`)
