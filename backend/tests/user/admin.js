@@ -76,7 +76,7 @@ it("Admin should be able to CREATE an article", async () => {
     });
 });
 
-test("Admin should be able to READ an aricle  by the Article ID", async () => {
+test("Admin should be able to READ an article  by the Article ID", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });
@@ -160,7 +160,7 @@ it("admin can Update subject", async () => {
     });
 });
 
-it("Admin should be able to DELETE an subject", async () => {
+it("Admin should be able to DELETE a subject", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: adminUser.user._id,
   });

@@ -66,7 +66,7 @@ it("Tutor should be able to CREATE an article", async () => {
     });
 });
 
-test("Tutor should be able to READ an aricle by the Article ID", async () => {
+test("Tutor should be able to READ an article by the Article ID", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: tutorUser.user._id,
   });
@@ -131,7 +131,7 @@ it("Tutor can Get All Articles", async () => {
 });
 
 // Update Article
-it("Tutor can Update Articles", async () => {
+it("Tutor can Update an Article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: tutorUser.user._id,
   });
@@ -144,41 +144,3 @@ it("Tutor can Update Articles", async () => {
     .expect("Content-Type", /json/)
     .expect(200);
 });
-
-// Update subject TODO requires a subject post method for testing
-// it("admin can Update Articles", async () => {
-//   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-//     id: tutorUser.user._id,
-//   });
-//   // This is where the test should be edited for post put delete and get
-//   await request(strapi.server)
-//     .put(`/subjects/${subjectId}`)
-//     .set("accept", "application/json")
-//     .set("Content-Type", "application/json")
-//     .set("Authorization", "Bearer " + jwt)
-//     .send({ name: "testing subject update" })
-//     .expect(200)
-//     .then((data) => {
-//       expect(data.body).toBeDefined();
-//       expect(data.body.name).toBe("testing subject update");
-//     });
-// });
-
-// Update topic
-// it("tutor can Update subject", async () => {
-//   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-//     id: tutorUser.user._id,
-//   });
-//   // This is where the test should be edited for post put delete and get
-//   await request(strapi.server)
-//     .put(`/topics/${topicId}`)
-//     .set("accept", "application/json")
-//     .set("Content-Type", "application/json")
-//     .set("Authorization", "Bearer " + jwt)
-//     .send({ name: "testing topic update" })
-//     .expect(200)
-//     .then((data) => {
-//       expect(data.body).toBeDefined();
-//       expect(data.body.name).toBe("testing topic update");
-//     });
-// });

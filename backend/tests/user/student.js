@@ -64,67 +64,7 @@ it("Student can NOT CREATE an article", async () => {
     .expect(403);
 });
 
-it("Student can NOT CREATE an topic", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-  // This is where the test should be edited for post put delete and get
-  await request(strapi.server)
-    .post("/topics")
-    .set("accept", "application/json")
-    .set("Content-Type", "application/json")
-    .set("Authorization", "Bearer " + jwt)
-    .send(mockTopicData)
-    .expect("Content-Type", /json/)
-    .expect(403);
-});
-
-// Update Topic
-it("student can NOT Update topic", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-  // This is where the test should be edited for post put delete and get
-  await request(strapi.server)
-    .put(`/topics/${topicId}`)
-    .set("accept", "application/json")
-    .set("Content-Type", "application/json")
-    .set("Authorization", "Bearer " + jwt)
-    .send({ name: "testing topic update" })
-    .expect(403);
-});
-
-it("Student can NOT CREATE an subject", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-  // This is where the test should be edited for post put delete and get
-  await request(strapi.server)
-    .post("/subjects")
-    .set("accept", "application/json")
-    .set("Content-Type", "application/json")
-    .set("Authorization", "Bearer " + jwt)
-    .send(mockSubjectData)
-    .expect("Content-Type", /json/)
-    .expect(403);
-});
-
-// Update subject
-it("student can NOT Update subject", async () => {
-  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
-    id: studentUser.user._id,
-  });
-  // This is where the test should be edited for post put delete and get
-  await request(strapi.server)
-    .put(`/subjects/${subjectId}`)
-    .set("accept", "application/json")
-    .set("Content-Type", "application/json")
-    .set("Authorization", "Bearer " + jwt)
-    .send({ name: "testing subject update" })
-    .expect(403)
-});
-
-test("Student should be able to READ an aricle by the Article ID", async () => {
+test("Student should be able to READ an article by the Article ID", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: studentUser.user._id,
   });
@@ -169,7 +109,7 @@ it("Student can Get All Articles", async () => {
 });
 
 // Update Article
-it("Student can NOT Update Articles", async () => {
+it("Student can NOT Update an Article", async () => {
   const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
     id: studentUser.user._id,
   });
@@ -183,3 +123,62 @@ it("Student can NOT Update Articles", async () => {
     .expect(403);
 });
 
+it("Student can NOT CREATE a topic", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: studentUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .post("/topics")
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .send(mockTopicData)
+    .expect("Content-Type", /json/)
+    .expect(403);
+});
+
+// Update Topic
+it("student can NOT Update a topic", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: studentUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .put(`/topics/${topicId}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .send({ name: "testing topic update" })
+    .expect(403);
+});
+
+it("Student can NOT CREATE a subject", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: studentUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .post("/subjects")
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .send(mockSubjectData)
+    .expect("Content-Type", /json/)
+    .expect(403);
+});
+
+// Update subject
+it("student can NOT Update a subject", async () => {
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: studentUser.user._id,
+  });
+  // This is where the test should be edited for post put delete and get
+  await request(strapi.server)
+    .put(`/subjects/${subjectId}`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .send({ name: "testing subject update" })
+    .expect(403);
+});
