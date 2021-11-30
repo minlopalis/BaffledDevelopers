@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f7218592-a17e-40d7-bfbc-95ccb532edcb",
+		"_postman_id": "d9c663a3-0238-41a3-a11a-9335af738cf8",
 		"name": "Resources",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -203,6 +203,111 @@
 					"path": [
 						"articles",
 						"61a1356bae8d902ab34230f8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Articles as Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/articles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT update article as admin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/articles/61a1356bae8d902ab34230f8?name=Bill Gates&subject=Technology&topic=Biography",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"articles",
+						"61a1356bae8d902ab34230f8"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Bill Gates"
+						},
+						{
+							"key": "subject",
+							"value": "Technology"
+						},
+						{
+							"key": "topic",
+							"value": "Biography"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT update topic as admin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/topics/61a07e4dd523f618de0c283a?name=Mock topic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"topics",
+						"61a07e4dd523f618de0c283a"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Mock topic"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT update subject as admin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/subjects/61a07e4dd523f618de0c283a?name=Mock Subject",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"subjects",
+						"61a07e4dd523f618de0c283a"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Mock Subject"
+						}
 					]
 				}
 			},
