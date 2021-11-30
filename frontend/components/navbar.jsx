@@ -1,13 +1,15 @@
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { Fragment } from 'react';
-import { useStore } from '../store';
-import { SearchIcon } from '@heroicons/react/solid';
-
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { SearchIcon } from "@heroicons/react/solid";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { Fragment } from "react";
+import { useStore } from "../store";
+import NavLink from "./NavLink";
+import Link from "next/link";
+import NavButton from "./NavButton";
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 const NavBar = ({ user }) => {
@@ -16,8 +18,8 @@ const NavBar = ({ user }) => {
 
   const logout = async () => {
     try {
-      await axios.get('/api/logout');
-      router.push('/');
+      await axios.get("/api/logout");
+      router.push("/");
     } catch (e) {
       console.log(e);
     }
@@ -54,13 +56,8 @@ const NavBar = ({ user }) => {
                   Resources
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="/"
-                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-indigo-500"
-                  >
-                    Articles
-                  </a>
+                  <NavLink href="/articles" text="Articles" />
+                  <NavLink href="/subjects" text="Subjects" />
                 </div>
               </div>
 
@@ -107,8 +104,8 @@ const NavBar = ({ user }) => {
                           <a
                             href="/"
                             className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Your Profile
@@ -120,8 +117,8 @@ const NavBar = ({ user }) => {
                           <a
                             href="/"
                             className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Settings
@@ -132,8 +129,8 @@ const NavBar = ({ user }) => {
                         {({ active }) => (
                           <button
                             className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              ' px-4 py-2 text-sm text-gray-700 w-full flex justify-start'
+                              active ? "bg-gray-100" : "",
+                              " px-4 py-2 text-sm text-gray-700 w-full flex justify-start"
                             )}
                             onClick={logout}
                           >
@@ -150,15 +147,9 @@ const NavBar = ({ user }) => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="pt-2 pb-4 space-y-1">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="/"
-                className="block py-2 pl-3 pr-4 text-base font-medium text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50"
-              >
-                Articles
-              </Disclosure.Button>
-              <div className="relative mt-3 rounded-md shadow-sm">
+              <NavButton href="/articles" text="Articles" />
+              <NavButton href="/subjects" text="Subjects" />
+              <div className="relative mt-10 rounded-md shadow-sm">
                 <div className="absolute left-0 flex items-center pl-3 mt-2 ml-2 pointer-events-none">
                   <SearchIcon
                     className="w-5 h-5 text-gray-400"

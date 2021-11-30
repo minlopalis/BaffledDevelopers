@@ -1,15 +1,17 @@
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import nookies from 'nookies';
-import ArticleListItem from '../../components/articleListItem';
-import { API_URL } from '../../config';
-import { useStore } from '../../store';
-import { useEffect } from 'react';
+import { useRouter } from "next/router";
+import axios from "axios";
+import nookies from "nookies";
+import ArticleListItem from "../../components/articleListItem";
+import { API_URL } from "../../config";
+import { useStore } from "../../store";
+import { useEffect } from "react";
 
 const Articles = (props) => {
   const router = useRouter();
 
-  const { setArticles, articles, filter } = useStore((state) => state);
+  const { setArticles, articles, setSubjects, filter } = useStore(
+    (state) => state
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +21,13 @@ const Articles = (props) => {
             Authorization: `Bearer ${props.cookies.jwt}`,
           },
         });
+        const { data: subjectData } = await axios.get(`${API_URL}/subjects`, {
+          headers: {
+            Authorization: `Bearer ${props.cookies.jwt}`,
+          },
+        });
         setArticles(articleData);
+        setSubjects(subjectData);
       } catch (e) {
         console.log(e);
       }
@@ -34,8 +42,8 @@ const Articles = (props) => {
           {articles
             .filter(
               ({ topic, subject, about }) =>
-                topic.name.toLowerCase().includes(filter.toLowerCase()) ||
-                subject.name.toLowerCase().includes(filter.toLowerCase()) ||
+                topic?.name.toLowerCase().includes(filter.toLowerCase()) ||
+                subject?.name.toLowerCase().includes(filter.toLowerCase()) ||
                 about.toLowerCase().includes(filter.toLowerCase())
             )
             .map((article) => (
@@ -71,7 +79,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/',
+        destination: "/",
       },
     };
   }
