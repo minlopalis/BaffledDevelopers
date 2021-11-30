@@ -144,7 +144,7 @@ export const getServerSideProps = async (ctx) => {
       console.log(e);
     }
   }
-  console.log(`user`, user);
+
   if (!user) {
     return {
       redirect: {
