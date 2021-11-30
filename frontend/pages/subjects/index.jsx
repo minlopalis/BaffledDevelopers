@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import nookies from "nookies";
+import { useEffect } from "react";
 import { API_URL } from "../../config";
 import { useStore } from "../../store";
 
