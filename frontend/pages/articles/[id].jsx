@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect}  from "react";
 import { useStore } from "../../store";
 
+import Link from 'next/link';
+import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
 import ArticleItem from "../../components/articleItem";
 import ArticleListItem from "../../components/articleListItem";
 
@@ -14,8 +16,6 @@ const Article = ({user,cookies}) => {
 
   const { articles, setArticles } = useStore((state) => state);
 
-
-   // will fetch subjects if not already in store
    useEffect(() => {
     const fetchArticles = async () => {
       const { data } = await axios.get(`${API_URL}/articles`, {
@@ -37,6 +37,21 @@ const Article = ({user,cookies}) => {
   );
   
   return <div className="m-4">
+
+    <div className="flex flex-row justify-between">
+      <h1 className="my-5 text-3xl">{article?.name}</h1>
+      <div>
+      {user.role.type !== "student" ? (
+          <Link href={`/articles/edit/${article?.id}`}>
+            <a className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            href={`articles/edit/${article?.id}`}>
+              <PencilIcon className="w-4 h-4" />
+            </a>
+          </Link>
+        ) : null}
+      </div>
+    </div>
+
     <ArticleItem article={article}/>
     </div>;
 };

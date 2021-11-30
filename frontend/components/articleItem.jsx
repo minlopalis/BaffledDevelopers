@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'; 
 
-const ArticleItem = ({article}) => {
+const ArticleItem = ({user, article}) => {
   const router = useRouter();
   
   return (
     <>
+    {/* Display Article  */}
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-
       <div className="px-4 py-5 sm:px-6 bg-purple-50 text-gray-500">
-        <h3 className="text-2xl font-medium leading-6 text-gray-900">
-          {article?.name}
-        </h3>
         <p className="max-w-2xl mt-1 text-sm">
           ID: {article?.id}
         </p>
@@ -127,9 +124,9 @@ const ArticleItem = ({article}) => {
           Back
         </a>
       </Link>
-      <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium bg-purple-50 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      {/* <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium bg-purple-50 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         Edit Article
-      </a>
+      </a> */}
     </div>
     </>
     
@@ -142,7 +139,8 @@ export const getServerSideProps = (context) => {
   console.log('GSSP=', context.params);
   return {
     props:{
-      article: context.params.article
+      article: context.params.article,
+      user
     }
   }
 }
