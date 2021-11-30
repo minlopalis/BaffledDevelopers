@@ -1,13 +1,13 @@
-import { PlusIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import Link from "next/link";
-import nookies from "nookies";
-import { useEffect } from "react";
-import { API_URL } from "../../config";
-import { useStore } from "../../store";
+import { PlusIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import Link from 'next/link';
+import nookies from 'nookies';
+import { useEffect } from 'react';
+import { API_URL } from '../../config';
+import { useStore } from '../../store';
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 function Subjects({ user, cookies }) {
@@ -34,7 +34,7 @@ function Subjects({ user, cookies }) {
         <h2 className="mt-5 text-2xl font-medium tracking-wide text-gray-900 uppercase">
           Subjects
         </h2>
-        {user.role.type !== "student" ? (
+        {user.role.type !== 'student' ? (
           <Link href="/subjects/add/">
             <a className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <PlusIcon className="w-4 h-4" />
@@ -53,7 +53,7 @@ function Subjects({ user, cookies }) {
           >
             <div
               className={classNames(
-                "bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md"
+                'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
               )}
             >
               {subject.name[0]}
@@ -96,7 +96,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }

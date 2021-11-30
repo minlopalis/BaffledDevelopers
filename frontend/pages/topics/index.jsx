@@ -1,12 +1,12 @@
-import axios from "axios";
-import Link from "next/link";
-import nookies from "nookies";
-import { useEffect } from "react";
-import { API_URL } from "../../config";
-import { useStore } from "../../store";
+import axios from 'axios';
+import Link from 'next/link';
+import nookies from 'nookies';
+import { useEffect } from 'react';
+import { API_URL } from '../../config';
+import { useStore } from '../../store';
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 function Topics({ user, cookies }) {
@@ -37,13 +37,10 @@ function Topics({ user, cookies }) {
         className="grid min-h-full grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {topics.map((topic) => (
-          <li
-            key={topic?.id}
-            className="flex col-span-1 rounded-md shadow-sm"
-          >
+          <li key={topic?.id} className="flex col-span-1 rounded-md shadow-sm">
             <div
               className={classNames(
-                "bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md"
+                'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
               )}
             >
               {topic.name[0]}
@@ -86,7 +83,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }

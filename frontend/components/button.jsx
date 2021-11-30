@@ -1,9 +1,9 @@
 const Button = ({
   children,
-  type = "button",
+  type = 'button',
   onClick,
-  classes = "",
-  width = "full",
+  classes = '',
+  width = 'full',
 }) => (
   <button
     onClick={onClick}

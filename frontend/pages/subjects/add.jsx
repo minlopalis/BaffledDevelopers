@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
-import nookies from "nookies";
-import { API_URL } from "../../config";
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import Input from "../../components/input";
-import { useRouter } from "next/router";
-import { useStore } from "../../store";
-import Button from "../../components/button";
-import Spinner from "../../components/spinner";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import nookies from 'nookies';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Button from '../../components/button';
+import Input from '../../components/input';
+import Spinner from '../../components/spinner';
+import { API_URL } from '../../config';
+import { useStore } from '../../store';
 
 function AddSubject(props) {
   const router = useRouter();
@@ -43,7 +43,7 @@ function AddSubject(props) {
 
     const existingSubject = subjects.find((s) => s.name === data.Subject);
     if (existingSubject) {
-      setInternalError("Subject already exists");
+      setInternalError('Subject already exists');
       setLoading(false);
       return;
     }
@@ -60,7 +60,7 @@ function AddSubject(props) {
 
       addSubject(newSubject);
       setLoading(false);
-      router.push("/subjects");
+      router.push('/subjects');
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -104,11 +104,11 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  if (!user || user.role.type === "student") {
+  if (!user || user.role.type === 'student') {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }

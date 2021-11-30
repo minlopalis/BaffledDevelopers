@@ -1,13 +1,13 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import nookies from "nookies";
-import React, { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import Button from "../../../components/button";
-import Input from "../../../components/input";
-import Spinner from "../../../components/spinner";
-import { API_URL } from "../../../config";
-import { useStore } from "../../../store";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import nookies from 'nookies';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Button from '../../../components/button';
+import Input from '../../../components/input';
+import Spinner from '../../../components/spinner';
+import { API_URL } from '../../../config';
+import { useStore } from '../../../store';
 
 function EditSubject(props) {
   const router = useRouter();
@@ -57,7 +57,7 @@ function EditSubject(props) {
 
       updateTopic(newTopic.id, newTopic);
       setLoading(false);
-      router.push("/topics");
+      router.push('/topics');
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -100,11 +100,11 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 
-  if (!user || user.role.type === "student") {
+  if (!user || user.role.type === 'student') {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }

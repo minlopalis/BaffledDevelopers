@@ -1,11 +1,11 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { API_URL } from "../../config";
-import nookies from "nookies";
-import Link from "next/link";
-import { useStore } from "../../store";
-import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
+import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import nookies from 'nookies';
+import { useCallback, useEffect, useState } from 'react';
+import { API_URL } from '../../config';
+import { useStore } from '../../store';
 
 function Subject({ user, cookies }) {
   const router = useRouter();
@@ -31,7 +31,7 @@ function Subject({ user, cookies }) {
 
       deleteSubject(id);
       setLoading(false);
-      router.push("/subjects");
+      router.push('/subjects');
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -59,14 +59,14 @@ function Subject({ user, cookies }) {
       <div className="flex flex-row justify-between">
         <h1 className="my-5 text-3xl">{subject?.name}</h1>
         <div className="flex flex-row">
-          {user.role.type !== "student" ? (
+          {user.role.type !== 'student' ? (
             <Link href={`/subjects/edit/${subject?.id}`}>
               <a className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <PencilIcon className="w-4 h-4" />
               </a>
             </Link>
           ) : null}
-          {user.role.type === "administrator" ? (
+          {user.role.type === 'administrator' ? (
             <button
               onClick={handleDeleteClick}
               className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
@@ -102,7 +102,7 @@ function Subject({ user, cookies }) {
                   {subject?.articles.map((article, idx) => (
                     <tr
                       key={article.id}
-                      className={idx % 2 === 0 ? "bg-white" : "bg-gray-200"}
+                      className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-200'}
                     >
                       <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                         <Link href={`/articles/${article.id}`}>
@@ -110,9 +110,9 @@ function Subject({ user, cookies }) {
                         </Link>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                        {new Intl.DateTimeFormat("en-GB", {
-                          dateStyle: "full",
-                          timeStyle: "short",
+                        {new Intl.DateTimeFormat('en-GB', {
+                          dateStyle: 'full',
+                          timeStyle: 'short',
                         }).format(new Date(article.createdAt))}
                       </td>
                     </tr>
@@ -149,7 +149,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }
