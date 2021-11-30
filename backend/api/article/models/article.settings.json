@@ -17,12 +17,12 @@
       "required": true
     },
     "subject": {
-      "model": "subject",
-      "via": "articles"
+      "via": "articles",
+      "model": "subject"
     },
     "topic": {
-      "model": "topic",
-      "via": "articles"
+      "via": "articles",
+      "model": "topic"
     },
     "about": {
       "type": "text",

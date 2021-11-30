@@ -5,10 +5,11 @@ const Input = ({
   error,
   type,
   defaultValue = "",
+  internalError = "",
 }) => {
   const colors = {
-    text: error ? "red" : "gray",
-    border: error ? "red" : "indigo",
+    text: error || internalError ? "red" : "gray",
+    border: error || internalError ? "red" : "indigo",
   };
   return (
     <div>
@@ -25,6 +26,11 @@ const Input = ({
       {error && (
         <p className={`mt-2 text-sm text-${colors.text}-600`} id="email-error">
           This field is required
+        </p>
+      )}
+      {internalError && (
+        <p className={`mt-2 text-sm text-${colors.text}-600`} id="email-error">
+          {internalError}
         </p>
       )}
     </div>

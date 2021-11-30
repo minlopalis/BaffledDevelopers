@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "topics",
   "info": {
-    "name": "topic"
+    "name": "topic",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -13,7 +14,8 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
     },
     "articles": {
       "via": "topic",
