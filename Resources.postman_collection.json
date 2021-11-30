@@ -312,6 +312,170 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET articles by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost:1337}}/articles/619b13b8be9255b5f07fbefe",
+					"host": [
+						"{{localhost:1337}}"
+					],
+					"path": [
+						"articles",
+						"619b13b8be9255b5f07fbefe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST login as Student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"identifier\" : \"student@test.com\",\r\n    \"password\" : \"Student123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost:1337}}/auth/local",
+					"host": [
+						"{{localhost:1337}}"
+					],
+					"path": [
+						"auth",
+						"local"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST login as Tutor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"identifier\" : \"tutor@test.com\",\r\n    \"password\" : \"Tutor123\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost:1337}}/auth/local",
+					"host": [
+						"{{localhost:1337}}"
+					],
+					"path": [
+						"auth",
+						"local"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST login as Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"identifier\" : \"tutor@test.com\",\r\n    \"password\" : \"Tutor123\"  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost:1337}}/auth/local",
+					"host": [
+						"{{localhost:1337}}"
+					],
+					"path": [
+						"auth",
+						"local"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE article by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTA3ZWUzZDUyM2Y2MThkZTBjMjgzYiIsImlhdCI6MTYzODMwNTk1MSwiZXhwIjoxNjQwODk3OTUxfQ.pGZyEJUomtAlGNjb_s36udzYCM9PkOovftzDdLNwR_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{localhost:1337}}/articles/61a68ec751557209df78a864",
+					"host": [
+						"{{localhost:1337}}"
+					],
+					"path": [
+						"articles",
+						"61a68ec751557209df78a864"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST create article",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTA3ZWUzZDUyM2Y2MThkZTBjMjgzYiIsImlhdCI6MTYzODMwNTk1MSwiZXhwIjoxNjQwODk3OTUxfQ.pGZyEJUomtAlGNjb_s36udzYCM9PkOovftzDdLNwR_g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Importance of Data Management\",\r\n    \"about\" : \"Many organizations recognize that their data is a vital enterprise asset. Data and information can give them insights about their customers, products, and services. It can help them innovate and reach strategic goals. Despite that recognition, few organizations actively manage data as an asset from which they can derive ongoing value. Deriving value from data does not happen in a vacuum or by accident. It requires intention, planning, coordination, and commitment. It requires management and leadership.\",\r\n    \"subject\" : \"619609256f2f8d16f4d59d93\",\r\n    \"topic\" : \"619b18c1dc83234d0873aca8\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost:1337}}/articles/",
+					"host": [
+						"{{localhost:1337}}"
+					],
+					"path": [
+						"articles",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
