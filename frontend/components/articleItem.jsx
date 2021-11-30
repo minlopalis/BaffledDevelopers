@@ -3,173 +3,136 @@ import { useRouter } from 'next/router';
 
 const ArticleItem = ({article}) => {
   const router = useRouter();
-
-  console.log('articleItem.jsx = ', article);
   
   return (
+    <>
     <div className="overflow-hidden bg-white shadow sm:rounded-lg">
 
-      <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">
+      <div className="px-4 py-5 sm:px-6 bg-purple-50 text-gray-500">
+        <h3 className="text-2xl font-medium leading-6 text-gray-900">
           {article?.name}
         </h3>
-        <p className="max-w-2xl mt-1 text-sm text-gray-500">
+        <p className="max-w-2xl mt-1 text-sm">
           ID: {article?.id}
         </p>
-        <p className="max-w-2xl mt-1 text-sm text-gray-500">
-          {article?.known_for}
+        <p className="max-w-2xl mt-3 text-sm">
+          <span className="font-bold">{article?.topic.name}</span> | <span>{article?.subject.name}</span>
         </p>
       </div>
 
-      <div className="px-4 py-5 border-t border-gray-200 sm:p-0">
-        <dl className="sm:divide-y sm:divide-gray-200">
+      <div className="p-5 border-t border-gray-200">
+        {/* <div className="sm:divide-y sm:divide-gray-200"> */}
+
+        <div className="text-gray-600 p-4 sm:p-0">
+          {/* About */}
+          {article?.about ? (
+          <p className="text-gray-900 italic">
+            {article?.about}
+          </p>
+          ) : ('')}
+
+          {/* Known For */}
+          {article?.known_for ? (
+          <p className="py-4">
+              <h3 className="text-lg font-medium text-gray-500">Known For</h3>
+              <p>{article?.known_for}</p>
+          </p>
+          ) : ('')}
 
           {/* Nationality */}
           {article?.nationality ? (
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Nationality</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.nationality}
-            </dd>
-          </div>
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Nationality</p>
+              <p className="text-gray-900">{article?.nationality}</p>
+          </p>
           ) : ('')}
-
 
           {/* Year */}
           {article?.year ? (
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Year</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.year}
-            </dd>
-          </div>
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Year</p>
+              <p className="text-gray-900">{article?.year}</p>
+          </p>
           ) : ('')}
 
           {/* Medium */}
           {article?.medium ? (
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Medium</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.medium}
-            </dd>
-          </div>
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Medium</p>
+              <p className="text-gray-900">{article?.medium}</p>
+          </p>
           ) : ('')}
 
           {/* Dimensions */}
           {article?.dimensions ? (
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Dimensions</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.dimensions}
-            </dd>
-          </div>
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Dimensions</p>
+              <p className="text-gray-900">{article?.dimensions}</p>
+          </p>
           ) : ('')}
 
 
           {/* Location */}
           {article?.location ? (
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Location</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.location}
-            </dd>
-          </div>) : 
-          ('')}
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Location</p>
+              <p className="text-gray-900">{article?.location}</p>
+          </p>
+          ) : ('')}
 
 
           {/* Designed By */}
           {article?.designed_by ? (
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Designed By</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.designed_by}
-            </dd>
-          </div>) : 
-          ('')}
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Designed By</p>
+              <p className="text-gray-900">{article?.designed_by}</p>
+          </p>
+          ) : ('')}
 
 
           {/* Developer */}
           {article?.developer ? (
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Developer</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.developer}
-            </dd>
-          </div>) : 
-          ('')}
-
-
-          {/* About */}
-          {article?.about ? (
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">About</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.about}
-            </dd>
-          </div>
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Developer</p>
+              <p className="text-gray-900">{article?.developer}</p>
+          </p>
           ) : ('')}
 
-
-          {/* Born / Died */}
-          {/* TODO: Adjust into 2 columns on a large screen */}
-          {!article?.born && !article?.died ? ('') : (
-          <div className="py-4 grid-cols-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-            
-            <dt className="text-sm font-medium text-gray-500">Born
-            </dt>
-            <dd className="mt-1 text-sm text-gray-900 col-span-2 sm:mt-0 sm:col-span-1">
-              {article?.born}
-            </dd>
-
-            <dt className="text-sm font-medium text-gray-500">Died</dt>
-            <dd className="mt-1 text-sm text-gray-900 col-span-2 sm:mt-0 sm:col-span-1">
-              {article?.died}
-            </dd>
-          </div>
-          )}
-
-          {/* Topic */}
-          {article?.topic.name ? (
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Topic</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.topic.name}
-            </dd>
+          {/* Lifespan */}
+          {article?.born || article?.died ? (
+          <div className="py-4">
+            <p className="text-lg font-medium text-gray-500">Lifespan</p>
+            <p className="font-medium text-gray-500">Born: <span className="font-normal text-gray-900">{article?.born}</span></p>
+            <p className="font-medium text-gray-500">Died: <span className="font-normal text-gray-900">{article?.died}</span></p>
           </div>
           ) : ('')}
-
-
-          {/* Subject */}
-          {article?.subject.name ? (
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Subject</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.subject.name}
-            </dd>
-          </div>
-          ) : ('')}
-
 
           {/* Noteable Work */}
           {article?.notable_work ? (
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Notable Work</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {article?.notable_work}
-            </dd>
-          </div>) : 
-          ('')}
+          <p className="py-4">
+              <p className="text-lg font-medium text-gray-500">Notable Work</p>
+              <p className="text-gray-900">{article?.notable_work}</p>
+          </p>
+          ) : ('')}
 
+        {/* </div> */}
 
-          <div className="col-span-2 py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <button onClick={()=>router.back()} 
-                className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Back
-              </button>
-          </div>
-        </dl>
       </div>
     </div>
+    </div>
+
+    <div className="my-4 grid grid-cols-2 gap-4">
+      <Link href="/articles/">
+        <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Back
+        </a>
+      </Link>
+      <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium bg-purple-50 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Edit Article
+      </a>
+    </div>
+    </>
+    
   );
 };
 
