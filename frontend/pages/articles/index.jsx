@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const Articles = (props) => {
   const router = useRouter();
 
-  const { setArticles, articles, setSubjects, filter } = useStore(
+  const { setArticles, articles, setSubjects, filter, setTopics } = useStore(
     (state) => state
   );
 
@@ -26,8 +26,14 @@ const Articles = (props) => {
             Authorization: `Bearer ${props.cookies.jwt}`,
           },
         });
+        const { data: topicData } = await axios.get(`${API_URL}/topics`, {
+          headers: {
+            Authorization: `Bearer ${props.cookies.jwt}`,
+          },
+        });
         setArticles(articleData);
         setSubjects(subjectData);
+        setTopics(topicData);
       } catch (e) {
         console.log(e);
       }

@@ -1,43 +1,43 @@
 import axios from "axios";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { API_URL } from "../../config";
-import nookies from "nookies";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import nookies from "nookies";
+import { useCallback, useEffect } from "react";
+import { API_URL } from "../../config";
 import { useStore } from "../../store";
 
 function Subject({ user, cookies }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { subjects, setSubjects } = useStore((state) => state);
+  const { topics, setTopics } = useStore((state) => state);
 
-  const subject = useStore(
-    useCallback((state) => state.subjects.find((s) => s.id === id), [id])
+  const topic = useStore(
+    useCallback((state) => state.topics.find((t) => t.id === id), [id])
   );
 
   // will fetch subjects if not already in store
   useEffect(() => {
-    const fetchSubjects = async () => {
-      const { data } = await axios.get(`${API_URL}/subjects`, {
+    const fetchTopics = async () => {
+      const { data } = await axios.get(`${API_URL}/topics`, {
         headers: {
           Authorization: `Bearer ${cookies.jwt}`,
         },
       });
-      setSubjects(data);
+      setTopics(data);
     };
 
-    if (!subjects.length) {
-      fetchSubjects();
+    if (!topics.length) {
+      fetchTopics();
     }
-  }, [subjects]);
+  }, [topics]);
 
   return (
     <div className="container mx-auto">
       <div className="flex flex-row justify-between">
-        <h1 className="my-5 text-3xl">{subject?.name}</h1>
+        <h1 className="my-5 text-3xl">{topic?.name}</h1>
         {user.role.type !== "student" ? (
-          <Link href={`/subjects/edit/${subject.id}`}>
+          <Link href={`/topics/edit/${topic.id}`}>
             <a className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Edit
             </a>
@@ -67,7 +67,7 @@ function Subject({ user, cookies }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {subject?.articles.map((article, idx) => (
+                  {topic?.articles.map((article, idx) => (
                     <tr
                       key={article.id}
                       className={idx % 2 === 0 ? "bg-white" : "bg-gray-200"}

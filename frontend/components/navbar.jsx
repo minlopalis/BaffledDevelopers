@@ -58,6 +58,7 @@ const NavBar = ({ user }) => {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   <NavLink href="/articles" text="Articles" />
                   <NavLink href="/subjects" text="Subjects" />
+                  <NavLink href="/topics" text="Topics" />
                 </div>
               </div>
 
@@ -149,6 +150,7 @@ const NavBar = ({ user }) => {
             <div className="pt-2 pb-4 space-y-1">
               <NavButton href="/articles" text="Articles" />
               <NavButton href="/subjects" text="Subjects" />
+              <NavButton href="/topics" text="Topics" />
               <div className="relative mt-10 rounded-md shadow-sm">
                 <div className="absolute left-0 flex items-center pl-3 mt-2 ml-2 pointer-events-none">
                   <SearchIcon

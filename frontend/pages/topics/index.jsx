@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import nookies from "nookies";
+import { useEffect } from "react";
 import { API_URL } from "../../config";
 import { useStore } from "../../store";
 
@@ -8,36 +9,35 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Subjects({ user, cookies }) {
-  const { subjects, setSubjects } = useStore((state) => state);
-
+function Topics({ user, cookies }) {
+  const { topics, setTopics } = useStore((state) => state);
   useEffect(() => {
-    const fetchSubjects = async () => {
-      const { data } = await axios.get(`${API_URL}/subjects`, {
+    const fetchTopics = async () => {
+      const { data } = await axios.get(`${API_URL}/topics`, {
         headers: {
           Authorization: `Bearer ${cookies.jwt}`,
         },
       });
-      setSubjects(data);
+      setTopics(data);
     };
 
-    if (!subjects.length) {
-      fetchSubjects();
+    if (!topics.length) {
+      fetchTopics();
     }
-  }, [subjects]);
+  }, [topics]);
 
   return (
     <div className="mt-4">
       <h2 className="text-xs font-medium tracking-wide text-gray-500 uppercase">
-        Subjects
+        Topics
       </h2>
       <ul
         role="list"
         className="grid min-h-full grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {subjects.map((subject) => (
+        {topics.map((topic) => (
           <li
-            key={subject?.name}
+            key={topic?.name}
             className="flex col-span-1 rounded-md shadow-sm"
           >
             <div
@@ -45,13 +45,13 @@ function Subjects({ user, cookies }) {
                 "bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md"
               )}
             >
-              {subject.name[0]}
+              {topic.name[0]}
             </div>
             <div className="flex items-center justify-between flex-1 truncate bg-white border-t border-b border-r border-gray-200 rounded-r-md">
               <div className="flex-1 px-4 py-2 text-sm truncate">
-                <Link href={`/subjects/${subject.id}`}>
+                <Link href={`/topics/${topic.id}`}>
                   <a className="font-medium text-gray-900 hover:text-gray-600">
-                    {subject.name}
+                    {topic.name}
                   </a>
                 </Link>
               </div>
@@ -98,4 +98,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default Subjects;
+export default Topics;
