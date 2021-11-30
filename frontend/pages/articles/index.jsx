@@ -1,10 +1,10 @@
-import { useRouter } from "next/router";
-import axios from "axios";
-import nookies from "nookies";
-import ArticleListItem from "../../components/articleListItem";
-import { API_URL } from "../../config";
-import { useStore } from "../../store";
-import { useEffect } from "react";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import nookies from 'nookies';
+import { useEffect } from 'react';
+import ArticleListItem from '../../components/articleListItem';
+import { API_URL } from '../../config';
+import { useStore } from '../../store';
 
 const Articles = (props) => {
   const router = useRouter();
@@ -85,7 +85,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }

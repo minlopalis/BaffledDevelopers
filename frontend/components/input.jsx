@@ -4,12 +4,12 @@ const Input = ({
   required,
   error,
   type,
-  defaultValue = "",
-  internalError = "",
+  defaultValue = '',
+  internalError = '',
 }) => {
   const colors = {
-    text: error || internalError ? "red" : "gray",
-    border: error || internalError ? "red" : "indigo",
+    text: error || internalError ? 'red' : 'gray',
+    border: error || internalError ? 'red' : 'indigo',
   };
   return (
     <div>

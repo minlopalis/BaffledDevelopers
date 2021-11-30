@@ -1,15 +1,15 @@
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { SearchIcon } from "@heroicons/react/solid";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { Fragment } from "react";
-import { useStore } from "../store";
-import NavLink from "./NavLink";
-import Link from "next/link";
-import NavButton from "./NavButton";
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { SearchIcon } from '@heroicons/react/solid';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { Fragment } from 'react';
+import { useStore } from '../store';
+import NavButton from './NavButton';
+import NavLink from './NavLink';
+
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 const NavBar = ({ user }) => {
@@ -18,8 +18,8 @@ const NavBar = ({ user }) => {
 
   const logout = async () => {
     try {
-      await axios.get("/api/logout");
-      router.push("/");
+      await axios.get('/api/logout');
+      router.push('/');
     } catch (e) {
       console.log(e);
     }
@@ -105,8 +105,8 @@ const NavBar = ({ user }) => {
                           <a
                             href="/"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
                             Your Profile
@@ -118,8 +118,8 @@ const NavBar = ({ user }) => {
                           <a
                             href="/"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
                             Settings
@@ -130,8 +130,8 @@ const NavBar = ({ user }) => {
                         {({ active }) => (
                           <button
                             className={classNames(
-                              active ? "bg-gray-100" : "",
-                              " px-4 py-2 text-sm text-gray-700 w-full flex justify-start"
+                              active ? 'bg-gray-100' : '',
+                              ' px-4 py-2 text-sm text-gray-700 w-full flex justify-start'
                             )}
                             onClick={logout}
                           >
