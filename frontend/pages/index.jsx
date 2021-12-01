@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import LoginComponent from '../components/loginComponent';
 import { API_URL } from '../config';
@@ -8,7 +8,7 @@ const Home = () => {
   const router = useRouter();
 
   return (
-    <div className="container flex justify-center">
+    <div className="container flex justify-center mx-auto">
       <LoginComponent />
     </div>
   );
