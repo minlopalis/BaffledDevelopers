@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Alert from './Alert';
 import Button from './button';
 import Input from './input';
 import Spinner from './spinner';
@@ -14,9 +15,11 @@ const LoginComponent = () => {
   } = useForm();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const onSubmit = async (data) => {
     setLoading(true);
+    setError(null);
     try {
       await axios.post('/api/login', {
         identifier: data.Email,
@@ -28,6 +31,7 @@ const LoginComponent = () => {
     } catch (err) {
       setLoading(false);
       console.log(err.response.data);
+      setError(err.response.data.message);
     }
   };
 
@@ -71,6 +75,7 @@ const LoginComponent = () => {
               </Button>
             </div>
           </form>
+          {error && <Alert error={error} />}
         </div>
       </div>
     </div>
