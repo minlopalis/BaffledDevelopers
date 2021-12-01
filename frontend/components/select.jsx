@@ -4,6 +4,7 @@ const Select = ({
   required,
   error,
   selectID,
+  selectedItem,
   data,
   internalError = "",
 }) => {
@@ -24,7 +25,7 @@ const Select = ({
         >
           {data.map((d) => {
             return (
-              <option key={d?.id} value={d?.id}>
+              <option key={d?.id} selected={selectedItem === d.name} value={d?.id}>
                 {d?.name}
               </option>
             );

@@ -10,6 +10,7 @@ import Button from "../../../components/button";
 import Spinner from "../../../components/spinner";
 import TextArea from "../../../components/textarea";
 import Select from "../../../components/select";
+import Article from "../[id]";
 
 function EditArticle(props) {
   const router = useRouter();
@@ -150,11 +151,12 @@ function EditArticle(props) {
           required
           error={errors.Article}
         />
-        
+
         {/* Subjects */}
         <Select
           label="Subjects"
           register={register}
+          selectedItem={article?.subject.name}
           required
           error={errors.Article}
           selectID="Subjects"
@@ -166,6 +168,7 @@ function EditArticle(props) {
           label="Topics"
           register={register}
           required
+          selectedItem={article?.topic.name}
           error={errors.Article}
           selectID="Topics"
           data={topics}
