@@ -1,14 +1,15 @@
-import axios from "axios";
-import nookies from "nookies";
-import { API_URL } from "../../config";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { useStore } from "../../store";
+import axios from 'axios';
+import nookies from 'nookies';
+import { API_URL } from '../../config';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { useStore } from '../../store';
 
-import Link from "next/link";
-import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
-import ArticleItem from "../../components/articleItem";
-import ArticleListItem from "../../components/articleListItem";
+import Link from 'next/link';
+import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
+import ArticleItem from '../../components/articleItem';
+import ArticleListItem from '../../components/articleListItem';
+import Spinner from '../../components/spinner';
 
 const Article = ({ user, cookies }) => {
   const router = useRouter();
@@ -52,7 +53,7 @@ const Article = ({ user, cookies }) => {
 
       deleteArticle(id);
       setLoading(false);
-      router.push("/articles");
+      router.push('/articles');
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -60,33 +61,38 @@ const Article = ({ user, cookies }) => {
   };
 
   return (
-    <div className="m-4 p-4">
+    <div className="p-4 m-4">
       <div className="flex flex-row justify-between">
-        <h1 className="my-5 text-3xl">{article?.name}</h1>
-        <div>
-          {user.role.type !== "student" ? (
-            <div className="flex">
-              <Link href={`/articles/edit/${article?.id}`}>
-                <a
-                  className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  href={`articles/edit/${article?.id}`}
-                >
-                  <PencilIcon className="w-4 h-4" />
-                </a>
-              </Link>
-              {user.role.type === "administrator" ? (
-                <button
-                  onClick={handleDeleteClick}
-                  className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                >
-                  <TrashIcon className="w-4 h-4" />
-                </button>
+        {article ? (
+          <>
+            <h1 className="my-5 text-3xl">{article?.name}</h1>
+            <div>
+              {user.role.type !== 'student' ? (
+                <div className="flex">
+                  <Link href={`/articles/edit/${article?.id}`}>
+                    <a
+                      className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      href={`articles/edit/${article?.id}`}
+                    >
+                      <PencilIcon className="w-4 h-4" />
+                    </a>
+                  </Link>
+                  {user.role.type === 'administrator' ? (
+                    <button
+                      onClick={handleDeleteClick}
+                      className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      <TrashIcon className="w-4 h-4" />
+                    </button>
+                  ) : null}
+                </div>
               ) : null}
             </div>
-          ) : null}
-        </div>
+          </>
+        ) : (
+          <Spinner color="black" />
+        )}
       </div>
-
       <ArticleItem article={article} />
     </div>
   );
@@ -115,7 +121,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/",
+        destination: '/',
       },
     };
   }

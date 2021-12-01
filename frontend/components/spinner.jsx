@@ -1,6 +1,6 @@
-const Spinner = () => (
+const Spinner = ({ color = 'white' }) => (
   <svg
-    className="w-5 h-5 ml-4 mr-3 text-white animate-spin"
+    className={`w-5 h-5 ml-4 mr-3 text-${color} animate-spin`}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
