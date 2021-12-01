@@ -42,34 +42,38 @@ function Subjects({ user, cookies }) {
           </Link>
         ) : null}
       </div>
-      <ul
-        role="list"
-        className="grid min-h-full grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        {subjects.map((subject) => (
-          <li
-            key={subject?.name}
-            className="flex col-span-1 rounded-md shadow-sm"
-          >
-            <div
-              className={classNames(
-                'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
-              )}
-            >
-              {subject.name[0]}
-            </div>
-            <div className="flex items-center justify-between flex-1 truncate bg-white border-t border-b border-r border-gray-200 rounded-r-md">
-              <div className="flex-1 px-4 py-2 text-sm truncate">
-                <Link href={`/subjects/${subject.id}`}>
-                  <a className="font-medium text-gray-900 hover:text-gray-600">
-                    {subject.name}
-                  </a>
-                </Link>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <ul
+          role="list"
+          className="grid min-h-full grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {subjects.map((subject) => (
+            <Link href={`/subjects/${subject.id}`}>
+              <a>
+                <li
+                  key={subject?.id}
+                  className="flex h-12 col-span-1 rounded-md shadow-sm"
+                >
+                  <div
+                    className={classNames(
+                      'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
+                    )}
+                  >
+                    {subject.name[0]}
+                  </div>
+                  <div className="flex items-center justify-between flex-1 truncate bg-white border-t border-b border-r border-gray-200 rounded-r-md">
+                    <div className="flex-1 px-4 py-2 text-sm truncate">
+                      <span className="font-medium text-gray-900 hover:text-gray-600">
+                        {subject.name}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              </a>
+            </Link>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
