@@ -48,7 +48,7 @@ function Subjects({ user, cookies }) {
           className="grid min-h-full grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
           {subjects.map((subject) => (
-            <Link href={`/subjects/${subject.id}`}>
+            <Link key={subject.id} href={`/subjects/${subject.id}`}>
               <a>
                 <li
                   key={subject?.id}
