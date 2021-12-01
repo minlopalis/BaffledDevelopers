@@ -50,7 +50,7 @@ function Articles({ user, cookies }) {
           <h2 className="mt-5 text-2xl font-medium tracking-wide text-gray-900 uppercase">
             Articles
           </h2>
-          {user.role.type === "administrator" ? (
+          {user.role.type !== "student" ? (
             <Link href="/articles/add/">
               <a className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <PlusIcon className="w-4 h-4" />
