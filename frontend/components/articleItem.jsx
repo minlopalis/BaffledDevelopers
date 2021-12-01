@@ -153,9 +153,6 @@ const ArticleItem = ({ user, article }) => {
             Back
           </a>
         </Link>
-        {/* <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium border border-transparent rounded-md shadow-sm bg-purple-50 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Edit Article
-      </a> */}
       </div>
     </>
   );

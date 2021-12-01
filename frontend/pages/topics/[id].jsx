@@ -123,6 +123,15 @@ function Topic({ user, cookies }) {
           </div>
         </div>
       </div>
+
+      <div className="grid grid-cols-2 gap-4 my-4">
+        <Link href="/topics/">
+          <a className="flex items-center justify-center w-full px-4 py-2 mx-auto text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Back
+          </a>
+        </Link>
+      </div>
+
     </div>
   );
 }
