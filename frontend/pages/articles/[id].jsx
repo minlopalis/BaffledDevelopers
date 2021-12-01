@@ -36,7 +36,7 @@ const Article = ({user,cookies}) => {
     useCallback((state) => state.articles.find((a) => a.id === id), [id])
   );
   
-  return <div className="m-4">
+  return <div className="m-4 p-4">
 
     <div className="flex flex-row justify-between">
       <h1 className="my-5 text-3xl">{article?.name}</h1>

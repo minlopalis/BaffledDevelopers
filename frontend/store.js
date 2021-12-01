@@ -1,14 +1,24 @@
 import create from 'zustand';
 
 export const useStore = create((set) => ({
-  filter: '',
+  filter: "",
   articles: [],
   subjects: [],
   topics: [],
 
   setFilter: (filter) => set((state) => ({ ...state, filter })),
   setArticles: (articles) => set((state) => ({ ...state, articles })),
-
+  updateArticle: (id, article) =>
+    set((state) => {
+      const articleIndex = state.articles.findIndex((a) => a.id === id);
+      state.articles[articleIndex] = article;
+      return { ...state };
+    }),
+  deleteArticle: (id) =>
+    set((state) => ({
+      ...state,
+      articles: state.articles.filter((a) => a.id !== id),
+    })),
   setSubjects: (subjects) => set((state) => ({ ...state, subjects })),
   addSubject: (subject) =>
     set((state) => ({ ...state, subjects: [...state.subjects, subject] })),
