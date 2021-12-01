@@ -31,7 +31,7 @@ function Topics({ user, cookies }) {
   return (
     <div className="mt-4">
       <div className="flex flex-row justify-between items-evenly">
-        <h2 className="text-xs font-medium tracking-wide text-gray-500 uppercase">
+        <h2 className="mt-5 text-2xl font-medium tracking-wide text-gray-900 uppercase">
           Topics
         </h2>
         {user.role.type !== 'student' ? (
