@@ -1,4 +1,4 @@
-import create from 'zustand';
+import create from "zustand";
 
 export const useStore = create((set) => ({
   filter: "",
@@ -7,6 +7,8 @@ export const useStore = create((set) => ({
   topics: [],
 
   setFilter: (filter) => set((state) => ({ ...state, filter })),
+  addArticle: (article) =>
+    set((state) => ({ ...state, articles: [...state.articles, article] })),
   setArticles: (articles) => set((state) => ({ ...state, articles })),
   updateArticle: (id, article) =>
     set((state) => {
