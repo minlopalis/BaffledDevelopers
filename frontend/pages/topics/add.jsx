@@ -1,74 +1,22 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '../../../components/button';
-import Input from '../../../components/input';
-import Spinner from '../../../components/spinner';
-import { API_URL } from '../../../config';
-import { useStore } from '../../../store';
+import Button from '../../components/button';
+import Input from '../../components/input';
+import Spinner from '../../components/spinner';
+import { API_URL } from '../../config';
+import { useStore } from '../../store';
 
-function EditSubject(props) {
+function AddTopic(props) {
   const router = useRouter();
-  const { id } = router.query;
   const [loading, setLoading] = useState(false);
+  const [internalError, setInternalError] = useState(null);
 
-  const subject = useStore(
-    useCallback(
-      (state) => state.subjects.find((s) => s.id === id), 
-      [id]
-    )
-  );
+  const { topics, setTopics, addTopic } = useStore((state) => state);
 
-  const colors = {
-    text: "gray",
-    border: "indigo",
-  };
-
-  const { 
-    articles,
-    topics,
-    subjects,
-    setArticles,
-    setSubjects,
-    setTopics,
-    updateSubject,
-   } = useStore((state) => state);
-
-  // fetch articles if not already in store
-  useEffect(() => {
-    const fetchArticles = async () => {
-      const { data } = await axios.get(`${API_URL}/articles`, {
-        headers: {
-          Authorization: `Bearer ${props.cookies.jwt}`,
-        },
-      });
-      setArticles(data);
-    };
-
-    if (!articles.length) {
-      fetchArticles();
-    }
-  }, [articles]);
-
-  // will fetch subjects if not already in store
-  useEffect(() => {
-    const fetchSubjects = async () => {
-      const { data } = await axios.get(`${API_URL}/subjects`, {
-        headers: {
-          Authorization: `Bearer ${props.cookies.jwt}`,
-        },
-      });
-      setSubjects(data);
-    };
-
-    if (!subjects.length) {
-      fetchSubjects();
-    }
-  }, [subjects]);
-
-  // Get Topics
+  // will fetch topics if not already in store
   useEffect(() => {
     const fetchTopics = async () => {
       const { data } = await axios.get(`${API_URL}/topics`, {
@@ -92,10 +40,17 @@ function EditSubject(props) {
 
   const onSubmit = async (data) => {
     setLoading(true);
+
+    const existingTopic = topics.find((t) => t.name === data.Topic);
+    if (existingTopic) {
+      setInternalError('Topic already exists');
+      setLoading(false);
+      return;
+    }
     try {
-      const { data: newSubject } = await axios.put(
-        `${API_URL}/subjects/${subject.id}`,
-        { name: data.Subject },
+      const { data: newTopic } = await axios.post(
+        `${API_URL}/topics`,
+        { name: data.Topic },
         {
           headers: {
             Authorization: `Bearer ${props.cookies.jwt}`,
@@ -103,9 +58,9 @@ function EditSubject(props) {
         }
       );
 
-      updateSubject(newSubject.id, newSubject);
+      addTopic(newTopic);
       setLoading(false);
-      router.push('/subjects');
+      router.push('/topics');
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -115,14 +70,13 @@ function EditSubject(props) {
   return (
     <div className="container mx-auto mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* subject name */}
         <Input
-          defaultValue={subject?.name}
           type="text"
-          label="Subject"
+          label="Topic"
           register={register}
           required
-          error={errors.Subject}
+          error={errors.Topic}
+          internalError={internalError}
         />
         <Button classes="mt-4" width="32" type="submit">
           Save {loading && <Spinner />}
@@ -131,6 +85,7 @@ function EditSubject(props) {
     </div>
   );
 }
+
 export const getServerSideProps = async (ctx) => {
   const cookies = nookies.get(ctx);
 
@@ -165,4 +120,4 @@ export const getServerSideProps = async (ctx) => {
     },
   };
 };
-export default EditSubject;
+export default AddTopic;

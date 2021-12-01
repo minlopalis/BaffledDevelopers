@@ -1,3 +1,4 @@
+import { PlusIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import Link from 'next/link';
 import nookies from 'nookies';
@@ -29,9 +30,18 @@ function Topics({ user, cookies }) {
 
   return (
     <div className="mt-4">
-      <h2 className="text-xs font-medium tracking-wide text-gray-500 uppercase">
-        Topics
-      </h2>
+      <div className="flex flex-row justify-between items-evenly">
+        <h2 className="text-xs font-medium tracking-wide text-gray-500 uppercase">
+          Topics
+        </h2>
+        {user.role.type !== 'student' ? (
+            <Link href="/topics/add/">
+              <a className="flex items-center justify-center h-10 px-4 mt-5 mr-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <PlusIcon className="w-4 h-4" />
+              </a>
+            </Link>
+          ) : null}
+      </div>
       <ul
         role="list"
         className="grid min-h-full grid-cols-1 gap-5 mt-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4"

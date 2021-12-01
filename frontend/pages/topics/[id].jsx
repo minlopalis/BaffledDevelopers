@@ -1,22 +1,44 @@
+import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { API_URL } from '../../config';
 import { useStore } from '../../store';
 
-function Subject({ user, cookies }) {
+function Topic({ user, cookies }) {
   const router = useRouter();
   const { id } = router.query;
-
-  const { topics, setTopics } = useStore((state) => state);
+  const [loading, setLoading] = useState(false);
+  const { topics, setTopics, deleteTopic } = useStore((state) => state);
 
   const topic = useStore(
     useCallback((state) => state.topics.find((t) => t.id === id), [id])
   );
 
-  // will fetch subjects if not already in store
+  const handleDeleteClick = async () => {
+    setLoading(true);
+    try {
+      const { data: newTopic } = await axios.delete(
+        `${API_URL}/topics/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.jwt}`,
+          },
+        }
+      );
+
+      deleteTopic(id);
+      setLoading(false);
+      router.push('/topics');
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+  };
+
+  // will fetch topics if not already in store
   useEffect(() => {
     const fetchTopics = async () => {
       const { data } = await axios.get(`${API_URL}/topics`, {
@@ -36,13 +58,23 @@ function Subject({ user, cookies }) {
     <div className="container mx-auto">
       <div className="flex flex-row justify-between">
         <h1 className="my-5 text-3xl">{topic?.name}</h1>
-        {user.role.type !== 'student' ? (
-          <Link href={`/topics/edit/${topic.id}`}>
-            <a className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Edit
-            </a>
-          </Link>
-        ) : null}
+        <div className="flex flex-row">
+          {user.role.type !== 'student' ? (
+            <Link href={`/topics/edit/${topic?.id}`}>
+              <a className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <PencilIcon className="w-4 h-4" />
+              </a>
+            </Link>
+          ) : null}
+          {user.role.type === 'administrator' ? (
+            <button
+              onClick={handleDeleteClick}
+              className="flex items-center justify-center h-10 px-4 mt-5 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              <TrashIcon className="w-4 h-4" />
+            </button>
+          ) : null}          
+        </div>
       </div>
       <h2>Linked Articles</h2>
       <div className="flex flex-col">
@@ -130,4 +162,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default Subject;
+export default Topic;

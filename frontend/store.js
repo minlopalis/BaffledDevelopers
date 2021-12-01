@@ -37,10 +37,17 @@ export const useStore = create((set) => ({
     })),
 
   setTopics: (topics) => set((state) => ({ ...state, topics })),
+  addTopic: (topic) =>
+    set((state) => ({ ...state, topics: [...state.topics, topic] })),
   updateTopic: (id, topic) =>
     set((state) => {
       const topicIndex = state.topics.findIndex((t) => t.id === id);
       state.topics[topicIndex] = topic;
       return { ...state };
     }),
-}));
+  deleteTopic: (id) =>
+    set((state) => ({
+      ...state,
+      topics: state.topics.filter((t) => t.id !== id),
+    })),  
+  }));

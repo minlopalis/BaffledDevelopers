@@ -1,26 +1,42 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import nookies from 'nookies';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import Button from '../../../components/button';
-import Input from '../../../components/input';
-import Spinner from '../../../components/spinner';
-import { API_URL } from '../../../config';
-import { useStore } from '../../../store';
+import React, { useCallback, useEffect, useState } from "react";
+import nookies from "nookies";
+import { API_URL } from "../../../config";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import Input from "../../../components/input";
+import { useRouter } from "next/router";
+import { useStore } from "../../../store";
+import Button from "../../../components/button";
+import Spinner from "../../../components/spinner";
 
-function EditSubject(props) {
+function EditTopic(props) {
   const router = useRouter();
   const { id } = router.query;
   const [loading, setLoading] = useState(false);
 
   const topic = useStore(
-    useCallback((state) => state.topics.find((t) => t.id === id), [id])
+    useCallback(
+      (state) => state.topics.find((t) => t.id === id),
+      [id]
+    )
   );
 
-  const { topics, setTopics, updateTopic } = useStore((state) => state);
+  const colors = {
+    text: "gray",
+    border: "indigo",
+  };
 
-  // will fetch subjects if not already in store
+  const { 
+    topics,
+    articles,
+    subjects,
+    setArticles,
+    setSubjects,
+    setTopics,
+    updateTopic,
+  } = useStore((state) => state);
+
+  // will fetch topics if not already in store
   useEffect(() => {
     const fetchTopics = async () => {
       const { data } = await axios.get(`${API_URL}/topics`, {
@@ -35,6 +51,38 @@ function EditSubject(props) {
       fetchTopics();
     }
   }, [topics]);
+
+  // fetch articles if not already in store
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data } = await axios.get(`${API_URL}/articles`, {
+        headers: {
+          Authorization: `Bearer ${props.cookies.jwt}`,
+        },
+      });
+      setArticles(data);
+    };
+
+    if (!articles.length) {
+      fetchArticles();
+    }
+  }, [articles]);
+
+  // Get Subjects
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      const { data } = await axios.get(`${API_URL}/subjects`, {
+        headers: {
+          Authorization: `Bearer ${props.cookies.jwt}`,
+        },
+      });
+      setSubjects(data);
+    };
+
+    if (!subjects.length) {
+      fetchSubjects();
+    }
+  }, [subjects]);
 
   const {
     register,
@@ -67,6 +115,7 @@ function EditSubject(props) {
   return (
     <div className="container mx-auto mt-5">
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/* topic name */}
         <Input
           defaultValue={topic?.name}
           type="text"
@@ -75,6 +124,7 @@ function EditSubject(props) {
           required
           error={errors.Topic}
         />
+
         <Button classes="mt-4" width="32" type="submit">
           Save {loading && <Spinner />}
         </Button>
@@ -116,4 +166,4 @@ export const getServerSideProps = async (ctx) => {
     },
   };
 };
-export default EditSubject;
+export default EditTopic;
